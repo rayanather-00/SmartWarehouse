@@ -19,10 +19,26 @@ bin/
 obj/
 
 # Compiled C++ files
+
+# Visual Studio
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.pdb
+*.ilk
+*.ipch
+*.sdf
+*.opensdf
+
+# Compiled files
+>>>>>>> origin/main
 *.exe
 *.dll
 *.obj
 *.o
+
 *.pdb
 *.ilk
 *.idb
@@ -34,5 +50,14 @@ obj/
 .DS_Store
 
 # Windows files
+
+*.lib
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+
+# Windows
 Thumbs.db
 Desktop.ini
