@@ -1,0 +1,15 @@
+L01,RACK,Rack Location 1
+L02,RACK,Rack Location 2
+L03,RACK,Rack Location 3
+L04,RACK,Rack Location 4
+L05,RACK,Rack Location 5
+L06,RACK,Rack Location 6
+L07,RACK,Rack Location 7
+L08,RACK,Rack Location 8
+L09,RACK,Rack Location 9
+L10,RACK,Rack Location 10
+L11,RACK,Rack Location 11
+L12,PACKING,Packing Station 1
+L13,PACKING,Packing Station 2
+L14,CHARGING,Charging Station 1
+L15,CHARGING,Charging Station 2

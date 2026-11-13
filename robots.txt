@@ -1,0 +1,5 @@
+RB01,Picker,L01,85,10,Available,NONE
+RB02,Carrier,L04,75,25,Available,NONE
+RB03,Heavy-duty,L07,90,50,Available,NONE
+RB04,Picker,L10,65,12,Available,NONE
+RB05,Carrier,L13,55,30,Available,NONE

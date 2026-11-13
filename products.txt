@@ -1,0 +1,10 @@
+P101,Keyboard,2,10
+P102,Mouse,1,15
+P103,Monitor,3,8
+P104,Headphones,4,10
+P105,Printer,6,5
+P106,Speaker,8,5
+P107,ServerUnit,12,3
+P108,Webcam,5,8
+P109,USBDrive,2,20
+P110,Cable,1,15
