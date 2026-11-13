@@ -1,4 +1,25 @@
 
+# VS Code settings
+.vscode/
+
+# Visual Studio generated files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build directories
+Debug/
+Release/
+x64/
+x86/
+build/
+bin/
+obj/
+
+# Compiled C++ files
+
 # Visual Studio
 .vs/
 [Bb]in/
@@ -12,10 +33,24 @@
 *.opensdf
 
 # Compiled files
+>>>>>>> origin/main
 *.exe
 *.dll
 *.obj
 *.o
+
+*.pdb
+*.ilk
+*.idb
+*.pch
+*.tlog
+*.lastbuildstate
+
+# macOS files
+.DS_Store
+
+# Windows files
+
 *.lib
 
 # Temporary files
