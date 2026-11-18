@@ -1,28 +1,62 @@
 #pragma once
-#include <string>
+#include <iostream>
 
-class operation_record {  // chnage it later
- public:
-  string operation_type;  // like what operation we doing with it
-  int record_id;          // this storing the id of the product or whatever we use this for
-  int previous_quantity;
-  double previous_price;
-  int previous_status;
-};
+using namespace std;
 
+template <typename T>
 class stack_node {
  public:
-  operation_record data;
-  stack_node* next;
+  T data;
+  stack_node<T>* next;
 };
 
+template <typename T>
 class stack {
  public:
-  stack_node* top;
+  stack_node<T>* top;
   stack();
-  void push(operation_record data);
-  void pop(operation_record& removed);
-  void peek(operation_record& top_record);
+  void push(T data);
+  void pop(T& removed);
+  void peek(T& top_record);
   bool is_empty();
-  void display();
 };
+
+template <typename T>
+stack<T>::stack() {
+  top = NULL;
+}
+
+template <typename T>
+bool stack<T>::is_empty() {
+  return top == NULL;
+}
+
+template <typename T>
+void stack<T>::push(T data) {
+  stack_node<T>* new_node = new stack_node<T>;
+  new_node->data = data;
+  new_node->next = top;
+  top = new_node;
+}
+
+template <typename T>
+void stack<T>::pop(T& removed) {
+  if (is_empty()) {
+    cout << "stack is empty\n";
+    return;
+  }
+  stack_node<T>* temp = top;
+  removed = temp->data;
+  top = top->next;
+  delete temp;
+}
+
+template <typename T>
+void stack<T>::peek(T& top_record) {
+  if (is_empty()) {
+    cout << "stack is empty\n";
+  }
+  else {
+    top_record = top->data;
+  }
+}

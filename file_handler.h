@@ -71,7 +71,7 @@ class order_data {
 };
 
 
-class ware_house_data { //home for everything
+class warehouse_data { //home for everything
     public:
     location_data locations[MAX_LOCATIONS];
     pathway_data pathways[MAX_PATHWAYS];
@@ -90,22 +90,22 @@ class ware_house_data { //home for everything
 };
 
 
-bool load_locations(ware_house_data& data);
-bool load_pathways(ware_house_data& data);
-bool load_products(ware_house_data& data);
-bool load_racks(ware_house_data& data);
-bool load_chargers(ware_house_data& data);
-bool load_robots(ware_house_data& data);
-bool load_orders(ware_house_data& data);
-bool save_locations(const ware_house_data& data);
-bool save_pathways(const ware_house_data& data);
-bool save_products(const ware_house_data& data);
-bool save_racks(const ware_house_data& data);
-bool save_chargers(const ware_house_data& data);
-bool save_robots(const ware_house_data& data);
-bool save_orders(const ware_house_data& data);
+bool load_locations(warehouse_data& data);
+bool load_pathways(warehouse_data& data);
+bool load_products(warehouse_data& data);
+bool load_racks(warehouse_data& data);
+bool load_chargers(warehouse_data& data);
+bool load_robots(warehouse_data& data);
+bool load_orders(warehouse_data& data);
+bool save_locations(const warehouse_data& data);
+bool save_pathways(const warehouse_data& data);
+bool save_products(const warehouse_data& data);
+bool save_racks(const warehouse_data& data);
+bool save_chargers(const warehouse_data& data);
+bool save_robots(const warehouse_data& data);
+bool save_orders(const warehouse_data& data);
 
 // these two same thing but check all seven at the same time
-bool save_all_data(const ware_house_data& data);
-bool load_all_data(ware_house_data& data);
+bool save_all_data(const warehouse_data& data);
+bool load_all_data(warehouse_data& data);
 

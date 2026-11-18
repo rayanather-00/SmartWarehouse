@@ -6,11 +6,13 @@ UseTab: Never
 BreakBeforeBraces: Custom
 
 BraceWrapping:
+  AfterEnum: false
+  AfterStruct: false
   AfterFunction: false
   AfterControlStatement: Never
   BeforeElse: true
-  BeforeCatch: true
 
+AllowShortEnumsOnASingleLine: Always
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortBlocksOnASingleLine: Never
 AllowShortIfStatementsOnASingleLine: Never
