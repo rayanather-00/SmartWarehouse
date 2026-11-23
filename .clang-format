@@ -1,0 +1,22 @@
+BasedOnStyle: Google
+
+IndentWidth: 2
+UseTab: Never
+
+BreakBeforeBraces: Custom
+
+BraceWrapping:
+  AfterEnum: false
+  AfterStruct: false
+  AfterFunction: false
+  AfterControlStatement: Never
+  BeforeElse: true
+
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortBlocksOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+MaxEmptyLinesToKeep: 2
+ColumnLimit: 0

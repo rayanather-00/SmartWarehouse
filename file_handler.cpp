@@ -7,7 +7,7 @@ using namespace std;
 
 
 // Format: LocationID,Type,Name
-bool load_locations(WarehouseData& data) {
+bool load_locations(warehouse_data& data) {
     ifstream file("locations.txt");
     if (!file.is_open()) {
         return false;
@@ -37,7 +37,7 @@ bool load_locations(WarehouseData& data) {
 // file format Location1,Location2,Distance,Status
 // lines represents a connection between two locations
 // its distance/weight and whether the pathway is OPEN or BLOCKED
-bool load_pathways(WarehouseData& data) {
+bool load_pathways(warehouse_data& data) {
     ifstream file("pathways.txt");
     if (!file.is_open()) {
         return false;
@@ -67,7 +67,7 @@ bool load_pathways(WarehouseData& data) {
 
 // file format ProductID,Name,UnitWeight,ReorderLevel
 // lines contains a product ID, name, weight and reorder level
-bool load_products(WarehouseData& data) {
+bool load_products(warehouse_data& data) {
     ifstream file("products.txt");
     if (!file.is_open()) {
         return false;
@@ -97,7 +97,7 @@ bool load_products(WarehouseData& data) {
 
 // format RackID,LocationID,ProductID,TotalQuantity,ReservedQuantity
 // lines connects a rack with a location and product including its total and reserved stock
-bool load_racks(WarehouseData& data) {
+bool load_racks(warehouse_data& data) {
     ifstream file("racks.txt");
     if (!file.is_open()) {
         return false;
@@ -129,7 +129,7 @@ bool load_racks(WarehouseData& data) {
 
 // formt ChargingStationID,LocationID,TotalSlots
 // lines represents a charging station, its location and the number of available charging slots
-bool load_chargers(WarehouseData& data) {
+bool load_chargers(warehouse_data& data) {
     ifstream file("chargers.txt");
     if (!file.is_open()) {
         return false;
@@ -157,7 +157,7 @@ bool load_chargers(WarehouseData& data) {
 
 // format RobotID,Type,CurrentLocation,Battery,MaxCapacity,Status,AssignedTask
 //line contains one robot and its current operating information
-bool load_robots(WarehouseData& data) {
+bool load_robots(warehouse_data& data) {
     ifstream file("robots.txt");
     if (!file.is_open()) {
         return false;
@@ -194,7 +194,7 @@ bool load_robots(WarehouseData& data) {
 // format OrderID,CustomerID,Status,ProductID:Quantity|ProductID:Quantity
 // lines contains an order. The final field stores one or more
 // product IDs and quantities, separated by |.
-bool load_orders(WarehouseData& data) {
+bool load_orders(warehouse_data& data) {
     ifstream file("orders.txt");
     if (!file.is_open()) {
         return false;
@@ -223,7 +223,7 @@ bool load_orders(WarehouseData& data) {
 }
 
 // Calls all seven loading functions and if any not open it will retunr false 
-bool load_all_data(WarehouseData& data) {
+bool load_all_data(warehouse_data& data) {
     bool a = load_locations(data);
     bool b = load_pathways(data);
     bool c = load_products(data);
@@ -235,7 +235,7 @@ bool load_all_data(WarehouseData& data) {
 }
 
 // Writes locations.txt in the same comma-separated format.
-bool save_locations(const WarehouseData& data) {
+bool save_locations(const warehouse_data& data) {
     ofstream file("locations.txt");
     if (!file.is_open()) {
         return false;
@@ -247,7 +247,7 @@ bool save_locations(const WarehouseData& data) {
     return true;
 }
 
-bool save_pathways(const WarehouseData& data) {
+bool save_pathways(const warehouse_data& data) {
     ofstream file("pathways.txt");
     if (!file.is_open()) {
         return false;
@@ -259,7 +259,7 @@ bool save_pathways(const WarehouseData& data) {
     return true;
 }
 
-bool save_products(const WarehouseData& data) {
+bool save_products(const warehouse_data& data) {
     ofstream file("products.txt");
     if (!file.is_open()) {
         return false;
@@ -271,7 +271,7 @@ bool save_products(const WarehouseData& data) {
     return true;
 }
 
-bool save_racks(const WarehouseData& data) {
+bool save_racks(const warehouse_data& data) {
     ofstream file("racks.txt");
     if (!file.is_open()) {
         return false;
@@ -283,7 +283,7 @@ bool save_racks(const WarehouseData& data) {
     return true;
 }
 
-bool save_chargers(const WarehouseData& data) {
+bool save_chargers(const warehouse_data& data) {
     ofstream file("chargers.txt");
     if (!file.is_open()) {
         return false;
@@ -295,7 +295,7 @@ bool save_chargers(const WarehouseData& data) {
     return true;
 }
 
-bool save_robots(const WarehouseData& data) {
+bool save_robots(const warehouse_data& data) {
     ofstream file("robots.txt");
     if (!file.is_open()) {
         return false;
@@ -309,7 +309,7 @@ bool save_robots(const WarehouseData& data) {
 }
 
 
-bool save_orders(const WarehouseData& data) {
+bool save_orders(const warehouse_data& data) {
     ofstream file("orders.txt");
     if (!file.is_open())  {
         return false;
@@ -323,7 +323,7 @@ bool save_orders(const WarehouseData& data) {
 }
 
 // calls all seven saving functions returns false if any file cannot be written
-bool save_all_data(const WarehouseData& data) {
+bool save_all_data(const warehouse_data& data) {
     bool a = save_locations(data);
     bool b = save_pathways(data);
     bool c = save_products(data);
