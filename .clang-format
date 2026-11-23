@@ -12,7 +12,7 @@ BraceWrapping:
   AfterControlStatement: Never
   BeforeElse: true
 
-AllowShortEnumsOnASingleLine: Always
+AllowShortEnumsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: Empty
 AllowShortBlocksOnASingleLine: Never
 AllowShortIfStatementsOnASingleLine: Never

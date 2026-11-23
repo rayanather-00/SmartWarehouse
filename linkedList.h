@@ -10,12 +10,12 @@ struct list_node {
 };
 
 template <typename T>
-class linked_list {
+class linkedList {
  public:
   list_node<T>* head;
   list_node<T>* tail;
   int count;
-  linked_list();
+  linkedList();
   void insert_front(T data);
   void insert_back(T data);
   bool remove(T target);
@@ -26,39 +26,39 @@ class linked_list {
 };
 
 template <typename T>
-linked_list<T>::linked_list() {
-  head = NULL;
-  tail = NULL;
+linkedList<T>::linkedList() {
+  head = nullptr;
+  tail = nullptr;
   count = 0;
 }
 
 template <typename T>
-bool linked_list<T>::is_empty() {
-  return head == NULL;
+bool linkedList<T>::is_empty() {
+  return head == nullptr;
 }
 
 template <typename T>
-int linked_list<T>::get_size() {
+int linkedList<T>::get_size() {
   return count;
 }
 
 template <typename T>
-void linked_list<T>::insert_front(T data) {
+void linkedList<T>::insert_front(T data) {
   list_node<T>* new_node = new list_node<T>;
   new_node->data = data;
   new_node->next = head;
   head = new_node;
-  if (tail == NULL) {
+  if (tail == nullptr) {
     tail = new_node;
   }
   count++;
 }
 
 template <typename T>
-void linked_list<T>::insert_back(T data) {
+void linkedList<T>::insert_back(T data) {
   list_node<T>* new_node = new list_node<T>;
   new_node->data = data;
-  new_node->next = NULL;
+  new_node->next = nullptr;
   if (is_empty()) {
     head = new_node;
     tail = new_node;
@@ -71,18 +71,18 @@ void linked_list<T>::insert_back(T data) {
 }
 
 template <typename T>
-void linked_list<T>::remove_node(list_node<T>* prev, list_node<T>* target) {
-  if (target == NULL) {
+void linkedList<T>::remove_node(list_node<T>* prev, list_node<T>* target) {
+  if (target == nullptr) {
     return;
   }
   if (target == head) {
     head = target->next;
-    if (head == NULL) {
-      tail = NULL;
+    if (head == nullptr) {
+      tail = nullptr;
     }
   }
   else {
-    if (prev == NULL) {
+    if (prev == nullptr) {
       return;
     }
     prev->next = target->next;
@@ -95,13 +95,13 @@ void linked_list<T>::remove_node(list_node<T>* prev, list_node<T>* target) {
 }
 
 template <typename T>
-bool linked_list<T>::remove(T target) {
+bool linkedList<T>::remove(T target) {
   if (is_empty()) {
     return false;
   }
-  list_node<T>* prev = NULL;
+  list_node<T>* prev = nullptr;
   list_node<T>* curr = head;
-  while (curr != NULL) {
+  while (curr != nullptr) {
     if (curr->data == target) {
       remove_node(prev, curr);
       return true;
@@ -113,12 +113,12 @@ bool linked_list<T>::remove(T target) {
 }
 
 template <typename T>
-void linked_list<T>::clear() {
+void linkedList<T>::clear() {
   while (!is_empty()) {
     list_node<T>* temp = head;
     head = head->next;
     delete temp;
   }
-  tail = NULL;
+  tail = nullptr;
   count = 0;
 }
