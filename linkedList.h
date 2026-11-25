@@ -21,8 +21,8 @@ class linkedList {
   bool remove(T target);
   void remove_node(list_node<T>* prev, list_node<T>* target);
   void clear();
-  bool is_empty();
-  int get_size();
+  bool is_empty() const;
+  int get_size() const;
 };
 
 template <typename T>
@@ -33,12 +33,12 @@ linkedList<T>::linkedList() {
 }
 
 template <typename T>
-bool linkedList<T>::is_empty() {
+bool linkedList<T>::is_empty() const {
   return head == nullptr;
 }
 
 template <typename T>
-int linkedList<T>::get_size() {
+int linkedList<T>::get_size() const {
   return count;
 }
 
