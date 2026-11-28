@@ -414,4 +414,64 @@ void clear_warehouse_data(warehouse_data& data) {
     data.charger_capacity = 0;
     data.robot_capacity = 0;
     data.order_capacity = 0;
+    // for invenotry.cpp
+    delete[] data.reservations;
+    data.reservations = nullptr;
+    data.reservation_count = 0;
+    data.reservation_capacity = 0;
+}
+
+
+//for inventory.cpp
+bool load_reservations(warehouse_data& data) {
+    return load_records("reservations.txt",
+        data.reservations,
+        data.reservation_count,
+        data.reservation_capacity,
+        [](const string& line, reservation_data& record) {
+            stringstream ss(line);
+
+            string order, product, rack, quantity;
+
+            getline(ss, order, ',');
+            getline(ss, product, ',');
+            getline(ss, rack, ',');
+            getline(ss, quantity);
+
+            if (order.empty() || product.empty() ||
+                rack.empty() || quantity.empty()) {
+                return false;
+            }
+
+            int qty = atoi(quantity.c_str());
+
+            if (qty <= 0) {
+                return false;
+            }
+
+            record.order_id = order;
+            record.product_id = product;
+            record.rack_id = rack;
+            record.quantity = qty;
+
+            return true;
+        });
+}
+
+bool save_reservations(const warehouse_data& data) {
+    ofstream file("reservations.txt");
+
+    if (!file.is_open()) {
+        return false;
+    }
+
+    for (int i = 0; i < data.reservation_count; i++) {
+        file << data.reservations[i].order_id << ","
+             << data.reservations[i].product_id << ","
+             << data.reservations[i].rack_id << ","
+             << data.reservations[i].quantity << endl;
+    }
+
+    file.close();
+    return true;
 }

@@ -1,73 +1,100 @@
+
 #include <iostream>
-
-#include "charging.h"
-#include "robot.h"
-#include "warehouse.h"
-
+#include "warehouse.cpp"
+#include "Inventory.cpp"
+#include "file_handler.cpp"
 using namespace std;
 
 int main() {
-  warehouse w;
-  fleet_manager fleet;
-  charging_manager chargers;
+    warehouse w;
+    inventory inv;
+    warehouse_data data;
 
-  cout << "========== 1. LOADING ALL DATA ==========\n";
-  w.LoadLocations();
-  fleet.loadRobots(w);
-  chargers.loadChargers(w);
+    cout << "========== LOADING DATA ==========\n";
 
-  cout << "\n--- WAREHOUSE (MODULE 1) ---\n";
-  w.displayAll();
-  cout << "BFS L01 -> L14: " << (w.checkIfConnectedBFS("L01", "L14") ? "Connected" : "Not Connected") << endl;
-  w.displayRoute("L01", "L14");
-  cout << "Blocking L09-L14...\n";
-  w.blockPathway("L09", "L14");
-  w.displayRoute("L01", "L14");
-  cout << "Reopening L09-L14...\n";
-  w.reopenPathway("L09", "L14");
+    if (w.searchLocation("L01") != nullptr)
+    cout << "L01 found in warehouse.\n";
+else
+    cout << "L01 NOT found in warehouse.\n";
 
-  cout << "\n--- ROBOT FLEET (MODULE 4) ---\n";
-  fleet.displayAllRobots();
-  fleet.registerRobot("RB99", "Picker", "L01", 90.0, 25, "Available", "NONE", w);  // expect reject
-  fleet.registerRobot("RB06", "Picker", "L13", 15.0, 10, "Available", "NONE", w);  // valid 6th robot
-  fleet.assignRobot("RB01", "O101");
-  fleet.assignRobot("RB01", "O102");  // expect reject (already assigned)
-  fleet.releaseRobot("RB01");
+    if (!inv.load_inventory(data, w)) {
+        cout << "Inventory loading failed.\n";
+        clear_warehouse_data(data);
+        return 1;
+    }
 
-  cout << "\n--- CHARGING STATIONS (MODULE 7) ---\n";
-  chargers.displayAllStations();
+    cout << "Inventory loaded successfully.\n";
 
-  // drop batteries below 20% so we can test charging & waiting queue
-  fleet.updateBattery("RB01", 15.0);
-  fleet.updateBattery("RB02", 15.0);
-  fleet.updateBattery("RB03", 15.0);
-  fleet.updateBattery("RB04", 15.0);
-  fleet.updateBattery("RB05", 15.0);
+    // ADD RACK TEST
+    cout << "\n--- ADD RACK TEST ---\n";
+    if (inv.add_rack("P102", "TEST_RACK", "L01", 0, w))
+        cout << "Rack added successfully.\n";
+    else
+        cout << "Rack addition failed.\n";
 
-  cout << "\n--- ROBOTS NEEDING CHARGING (< 20%) ---\n";
-  chargers.displayRobotsNeedingCharging(fleet);
+    // UPDATE QUANTITY TEST
+    cout << "\n--- UPDATE QUANTITY TEST ---\n";
+    if (inv.update_quantity("P102", "TEST_RACK", 5))
+        cout << "Rack quantity updated to 5.\n";
+    else
+        cout << "Quantity update failed.\n";
 
-  cout << "\n--- FILLING C01 (2 SLOTS) & C02 (3 SLOTS) + QUEUE TEST ---\n";
-  chargers.sendRobotToCharge("RB05", w, fleet);  // goes to C01 (nearest free)
-  chargers.sendRobotToCharge("RB04", w, fleet);  // goes to C01 (fills C01)
-  chargers.sendRobotToCharge("RB03", w, fleet);  // C01 full -> goes to C02
-  chargers.sendRobotToCharge("RB02", w, fleet);  // goes to C02
-  chargers.sendRobotToCharge("RB01", w, fleet);  // fills C02
-  chargers.sendRobotToCharge("RB06", w, fleet);  // all full -> joins C01 waiting queue
+    // REMOVE RACK TEST
+    cout << "\n--- REMOVE RACK TEST ---\n";
+    inv.update_quantity("P102", "TEST_RACK", 0);
 
-  cout << "\n--- STATIONS AFTER FILLING ---\n";
-  chargers.displayAllStations();
+    if (inv.remove_rack("P102", "TEST_RACK"))
+        cout << "Rack removed successfully.\n";
+    else
+        cout << "Rack removal failed.\n";
 
-  cout << "\n--- COMPLETE CHARGING FOR RB05 (RB06 SHOULD AUTO-ENTER SLOT) ---\n";
-  chargers.completeCharging("RB05", fleet);
-  chargers.displayAllStations();
+    // RESERVE STOCK TEST
+    cout << "\n--- RESERVE STOCK TEST ---\n";
+    if (inv.allocate_nearest_rack("P101", "L01", 3, "TEST_ORDER", w))
+        cout << "3 units reserved successfully.\n";
+    else
+        cout << "Stock reservation failed.\n";
 
-  cout << "\n--- UNREACHABLE / DEAD BATTERY TEST ---\n";
-  fleet.registerRobot("RB07", "Heavy-duty", "L01", 0.5, 40, "Available", "NONE", w);
-  chargers.sendRobotToCharge("RB07", w, fleet);  // expect Unavailable
+    cout << "Available stock: " << inv.get_available_stock("P101") << endl;
 
-  cout << "\n--- FINAL ROBOT STATUSES ---\n";
-  fleet.displayAllRobots();
+    // RELEASE RESERVATION TEST
+    cout << "\n--- RELEASE RESERVATION TEST ---\n";
+    if (inv.release_reservations("TEST_ORDER"))
+        cout << "Reservations released successfully.\n";
+    else
+        cout << "Reservation release failed.\n";
 
-  return 0;
+    cout << "Available stock: " << inv.get_available_stock("P101") << endl;
+
+    // DEDUCT RESERVED STOCK TEST
+    cout << "\n--- DEDUCT RESERVED STOCK TEST ---\n";
+
+    if (inv.allocate_nearest_rack("P101", "L01", 3, "TEST_ORDER", w))
+        cout << "Stock reserved for deduction.\n";
+
+    if (inv.deduct_reserved_stock("P101", "TEST_ORDER", 2))
+        cout << "2 reserved units deducted successfully.\n";
+    else
+        cout << "Stock deduction failed.\n";
+
+    // CLEANUP TEST RESERVATIONS AND RESTORE STOCK
+    inv.release_reservations("TEST_ORDER");
+    inv.update_quantity("P101", "RK01", 10);
+
+    cout << "\n--- FINAL STOCK ---\n";
+    cout << "Total stock: " << inv.get_total_stock("P101") << endl;
+    cout << "Available stock: " << inv.get_available_stock("P101") << endl;
+
+    // SAVE DATA
+    cout << "\n--- SAVING INVENTORY ---\n";
+
+    if (inv.save_inventory(data))
+        cout << "Inventory saved successfully.\n";
+    else
+        cout << "Inventory saving failed.\n";
+
+    cout << "\n========== MODULE 2 TESTING FINISHED ==========\n";
+
+    clear_warehouse_data(data);
+    return 0;
 }
