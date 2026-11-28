@@ -2,16 +2,6 @@
 #include <string>
 using namespace std;
 
-// this is manimum number of recod can stored in a file (change value if u want)
-// lowkey now i am thinking we can use dynamic too (these all are msg for abdul)
-const int MAX_LOCATIONS = 100;
-const int MAX_PATHWAYS = 200;
-const int MAX_PRODUCTS = 100;
-const int MAX_RACKS = 200;
-const int MAX_CHARGERS = 50;
-const int MAX_ROBOTS = 50;
-const int MAX_ORDERS = 200;
-
 class location_data {
  public:
   string location_id;
@@ -71,24 +61,35 @@ class order_data {
 };
 
 
+
 class warehouse_data {  // home for everything
  public:
-  location_data locations[MAX_LOCATIONS];
-  pathway_data pathways[MAX_PATHWAYS];
-  product_data products[MAX_PRODUCTS];
-  rack_data racks[MAX_RACKS];
-  charger_data chargers[MAX_CHARGERS];
-  robot_data robots[MAX_ROBOTS];
-  order_data orders[MAX_ORDERS];
-  int location_count;
-  int pathway_count;
-  int product_count;
-  int rack_count;
-  int charger_count;
-  int robot_count;
-  int order_count;
+  location_data* locations = nullptr;
+  pathway_data* pathways = nullptr;
+  product_data* products = nullptr;
+  rack_data* racks = nullptr;
+  charger_data* chargers = nullptr;
+  robot_data* robots = nullptr;
+  order_data* orders = nullptr;
+
+  int location_count = 0;
+  int pathway_count = 0;
+  int product_count = 0;
+  int rack_count = 0;
+  int charger_count = 0;
+  int robot_count = 0;
+  int order_count = 0;
+
+  int location_capacity = 0;
+  int pathway_capacity = 0;
+  int product_capacity = 0;
+  int rack_capacity = 0;
+  int charger_capacity = 0;
+  int robot_capacity = 0;
+  int order_capacity = 0;
 };
 
+void clear_warehouse_data(warehouse_data& data);
 
 bool load_locations(warehouse_data& data);
 bool load_pathways(warehouse_data& data);
