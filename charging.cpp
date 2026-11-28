@@ -1,11 +1,8 @@
 #include "Charging.h"
-
 #include <iomanip>
 #include <iostream>
-
 #include "file_handler.h"
 #include "linkedList.h"
-
 using namespace std;
 
 static string trim_charger_str(const string& s) {
