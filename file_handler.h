@@ -60,6 +60,13 @@ class order_data {
   string products;  // Stores the final field as written in orders.txt like-> P101:5|P102:3
 };
 
+class reservation_data {
+public:
+    string order_id;
+    string product_id;
+    string rack_id;
+    int quantity;
+};
 
 
 class warehouse_data {  // home for everything
@@ -71,7 +78,7 @@ class warehouse_data {  // home for everything
   charger_data* chargers = nullptr;
   robot_data* robots = nullptr;
   order_data* orders = nullptr;
-
+  
   int location_count = 0;
   int pathway_count = 0;
   int product_count = 0;
@@ -87,6 +94,11 @@ class warehouse_data {  // home for everything
   int charger_capacity = 0;
   int robot_capacity = 0;
   int order_capacity = 0;
+
+  // these for inventory.cpp
+  reservation_data* reservations = nullptr;
+  int reservation_count = 0;
+  int reservation_capacity = 0;
 };
 
 void clear_warehouse_data(warehouse_data& data);
@@ -109,3 +121,8 @@ bool save_orders(const warehouse_data& data);
 // these two same thing but check all seven at the same time
 bool save_all_data(const warehouse_data& data);
 bool load_all_data(warehouse_data& data);
+
+
+// for the invextory.cpp
+bool load_reservations(warehouse_data& data);
+bool save_reservations(const warehouse_data& data);
